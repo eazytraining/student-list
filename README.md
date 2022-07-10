@@ -1,6 +1,6 @@
 # student-list
 
-Ce repo est une simple application simple pour lister les étudiants avec un serveur Web (PHP) et une API (Flask)
+Ce repo est une simple application pour lister les étudiants avec un serveur Web (PHP) et une API (Flask)
 
 ![project](https://user-images.githubusercontent.com/18481009/84582395-ba230b00-adeb-11ea-9453-22ed1be7e268.jpg)
 
@@ -8,28 +8,28 @@ Ce repo est une simple application simple pour lister les étudiants avec un ser
 
 ## Application
 
-L'application sur laquelle vous allez travailler s'appelle "*student_list*", cette application est très basique et permet à POZOS d'afficher la liste des étudiants avec leur âge.
+L'application sur laquelle vous allez travailler s'appelle "*student_list*", cette application est basique et permet à POZOS d'afficher la liste des étudiants avec leur âge.
 
 student_list a deux modules :
 
-- le premier module est une API REST (avec authentification de base nécessaire) qui envoie la liste des souhaits de l'étudiant sur la base d'un fichier JSON
+- le premier module est une API REST (avec authentification de base nécessaire) qui envoie la liste des étudiants sur la base d'un fichier JSON
 - Le deuxième module est une application Web écrite en HTML + PHP qui permet à l'utilisateur final d'obtenir une liste d'étudiants
 
-Votre travail consiste à construire un conteneur pour chaque module et à les faire interagir les uns avec les autres
+Votre travail consiste à construire un conteneur pour chaque module et à les faire interagir
 
 Les fichiers que vous devez fournir (dans votre livraison) sont ***Dockerfile*** et ***docker-compose.yml*** (actuellement les deux sont vides)
 
-Il est maintenant temps de vous expliquer le rôle de chaque fichier :
+Le rôle de chaque fichier :
 
 - docker-compose.yml : pour lancer l'application (API et web app)
 - Dockerfile : le fichier qui servira à construire l'image de l'API (des détails seront donnés)
-- student_age.json : contient le nom de l'étudiant avec l'âge au format JSON
+- student_age.json : contient la liste des étudiants au format JSON
 - student_age.py : contient le code source de l'API en python
 - index.php : page PHP sur laquelle l'utilisateur final sera connecté pour interagir avec le service afin de lister les élèves par âge. Vous devez mettre à jour la ligne 29 avant d'exécuter le conteneur de site Web pour que ***api_ip_or_name*** et ***port*** correspondent à votre déploiement en utilisant des variables d'environnement php (regarder les lignes 20, 21 pour voir comment lire les env var en PHP).
 
 ## Build et test du conteneur simple_api
 
-POZOS vous donnera des informations pour construire le conteneur API
+Informations pour construire le conteneur API
 
 - Image de base
 
@@ -85,13 +85,13 @@ Le fichier ***docker-compose.yml*** va déployer deux services :
 - website : l'interface utilisateur final avec les caractéristiques suivantes
   - image : php:apache
   - environnement : vous fournirez le USERNAME le PASSWORD, le nom du conteneur de l'api et son port pour permettre à l'application Web d'accéder à l'API via l'authentification
-  - volumes : pour éviter que l'image php:apache ne s'exécute avec le site Web par défaut, nous allons lier le site Web donné par POZOS à utiliser. Vous devez avoir quelque chose comme `./site Web :/var/www/html`
+  - volumes : pour éviter que l'image php:apache ne s'exécute avec le site Web par défaut, nous devons monter le repertoire website dans le conteneur. Vous devez avoir quelque chose comme `./website :/var/www/html`
   - depend_on : vous devez vous assurer que l'API démarre avant le site Web
   - port : ne pas oublier d'exposer le port
 - API : l'image créée avant doit être utilisée avec les spécifications suivantes
   - image : le nom de l'image construite précédemment
   - volumes : vous monterez le fichier student_age.json dans /data/student_age.json
-  - port : n'oubliez pas d'exposer le port
+Les conteneurs devront être déployés dans le même réseau
 
 Supprimer votre conteneur créé précédemment
 
