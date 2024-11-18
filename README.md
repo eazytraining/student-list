@@ -33,7 +33,7 @@ Informations pour construire le conteneur API
 
 - Image de base
 
-Comme image de base vous devez utiliser "python:2.7-stretch"
+Comme image de base vous devez utiliser "python:2.7-buster"
 
 - Mainteneur
 
